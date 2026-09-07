@@ -6,6 +6,7 @@
 //!
 //! Primarily, it implements methods on `CaseMap`, which contains the data model.
 
+use crate::edits::{CaseMapSink, EditSink, PlainSink};
 use crate::greek_to_me::{
     self, GreekCombiningCharacterSequenceDiacritics, GreekDiacritics, GreekPrecomposedLetterData,
     GreekVowel,
@@ -15,6 +16,7 @@ use crate::provider::exception_helpers::ExceptionSlot;
 use crate::provider::{CaseMap, CaseMapUnfold};
 use crate::set::ClosureSink;
 use crate::titlecase::TrailingCase;
+use crate::{CaseMapEdit, CaseMapWriteable};
 use core::fmt;
 use icu_locale_core::LanguageIdentifier;
 use writeable::Writeable;
@@ -52,6 +54,23 @@ impl<Wr: Writeable> Writeable for StringAndWriteable<'_, Wr> {
     }
 }
 
+impl<Wr: CaseMapWriteable> CaseMapWriteable for StringAndWriteable<'_, Wr> {
+    fn write_to_with_edits<W: fmt::Write + ?Sized>(
+        &self,
+        sink: &mut W,
+        mut record_edit: impl FnMut(CaseMapEdit),
+    ) -> fmt::Result {
+        sink.write_str(self.string)?;
+        let offset = self.string.len();
+        self.writeable.write_to_with_edits(sink, |edit| {
+            record_edit(CaseMapEdit {
+                source: edit.source.start + offset..edit.source.end + offset,
+                destination: edit.destination.start + offset..edit.destination.end + offset,
+            });
+        })
+    }
+}
+
 pub(crate) struct FullCaseWriteable<'a, 'data, const IS_TITLE_CONTEXT: bool> {
     data: &'data CaseMap<'data>,
     src: &'a str,
@@ -60,15 +79,22 @@ pub(crate) struct FullCaseWriteable<'a, 'data, const IS_TITLE_CONTEXT: bool> {
     titlecase_tail_casing: TrailingCase,
 }
 
-impl<'a, const IS_TITLE_CONTEXT: bool> Writeable for FullCaseWriteable<'a, '_, IS_TITLE_CONTEXT> {
-    fn write_to<W: fmt::Write + ?Sized>(&self, sink: &mut W) -> fmt::Result {
+impl<const IS_TITLE_CONTEXT: bool> FullCaseWriteable<'_, '_, IS_TITLE_CONTEXT> {
+    fn write_to_sink<S: CaseMapSink>(&self, sink: &mut S) -> fmt::Result {
         let src = self.src;
         let mut mapping = self.mapping;
         let mut iter = src.char_indices();
         for (i, c) in &mut iter {
             let context = ContextIterator::new(&src[..i], &src[i..]);
-            self.data
-                .full_helper::<IS_TITLE_CONTEXT, W>(c, context, self.locale, mapping, sink)?;
+            sink.write_mapping(c, |sink| {
+                self.data.full_helper::<IS_TITLE_CONTEXT, S::Writer>(
+                    c,
+                    context,
+                    self.locale,
+                    mapping,
+                    sink,
+                )
+            })?;
             if IS_TITLE_CONTEXT {
                 if self.titlecase_tail_casing == TrailingCase::Lower {
                     mapping = MappingKind::Lower;
@@ -83,6 +109,25 @@ impl<'a, const IS_TITLE_CONTEXT: bool> Writeable for FullCaseWriteable<'a, '_, I
         }
         Ok(())
     }
+}
+
+impl<const IS_TITLE_CONTEXT: bool> CaseMapWriteable
+    for FullCaseWriteable<'_, '_, IS_TITLE_CONTEXT>
+{
+    fn write_to_with_edits<W: fmt::Write + ?Sized>(
+        &self,
+        sink: &mut W,
+        record_edit: impl FnMut(CaseMapEdit),
+    ) -> fmt::Result {
+        self.write_to_sink(&mut EditSink::new(sink, record_edit))
+    }
+}
+
+impl<'a, const IS_TITLE_CONTEXT: bool> Writeable for FullCaseWriteable<'a, '_, IS_TITLE_CONTEXT> {
+    fn write_to<W: fmt::Write + ?Sized>(&self, sink: &mut W) -> fmt::Result {
+        self.write_to_sink(&mut PlainSink(sink))
+    }
+
     fn writeable_length_hint(&self) -> writeable::LengthHint {
         writeable::LengthHint::at_least(self.src.len())
     }
