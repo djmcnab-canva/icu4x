@@ -2,13 +2,13 @@
 // called LICENSE at the top level of the ICU4X source tree
 // (online at: https://github.com/unicode-org/icu4x/blob/main/LICENSE ).
 
-use crate::CaseMapWriteable;
 use crate::internals::{CaseMapLocale, FoldOptions, FullCaseWriteable, StringAndWriteable};
 use crate::provider::data::MappingKind;
 use crate::provider::CaseMap;
 use crate::provider::CaseMapV1;
 use crate::set::ClosureSink;
 use crate::titlecase::{LeadingAdjustment, TitlecaseOptions, TrailingCase};
+use crate::CaseMapWriteable;
 use alloc::borrow::Cow;
 use icu_locale_core::LanguageIdentifier;
 use icu_provider::prelude::*;
@@ -22,8 +22,8 @@ use icu_provider::prelude::*;
 /// # Examples
 ///
 /// ```rust
-/// use icu::casemap::CaseMapper;
-/// use icu::locale::langid;
+/// use icu_casemap::CaseMapper;
+/// use icu_locale_core::langid;
 ///
 /// let cm = CaseMapper::new();
 ///
@@ -75,8 +75,8 @@ impl CaseMapperBorrowed<'static> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -272,8 +272,8 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = CaseMapper::new();
     /// let root = langid!("und");
@@ -306,8 +306,8 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = CaseMapper::new();
     /// let root = langid!("und");
@@ -359,8 +359,8 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = CaseMapper::new();
     /// let root = langid!("und");
@@ -408,7 +408,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -435,7 +435,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -465,8 +465,8 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
     ///
     /// let cm = CaseMapper::new();
     /// let mut builder = CodePointInversionListBuilder::new();
@@ -493,7 +493,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -514,7 +514,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -536,7 +536,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -574,7 +574,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -609,7 +609,7 @@ impl<'a> CaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
+    /// use icu_casemap::CaseMapper;
     ///
     /// let cm = CaseMapper::new();
     ///
@@ -632,8 +632,8 @@ impl CaseMapper {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::CaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = CaseMapper::new();
     ///

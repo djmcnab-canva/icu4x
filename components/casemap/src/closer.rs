@@ -18,8 +18,8 @@ use icu_provider::prelude::*;
 /// # Examples
 ///
 /// ```rust
-/// use icu::casemap::CaseMapCloser;
-/// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+/// use icu_casemap::CaseMapCloser;
+/// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
 ///
 /// let cm = CaseMapCloser::new();
 /// let mut builder = CodePointInversionListBuilder::new();
@@ -69,8 +69,8 @@ impl CaseMapCloser<CaseMapper> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapCloser;
-    /// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+    /// use icu_casemap::CaseMapCloser;
+    /// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
     ///
     /// let cm = CaseMapCloser::new();
     /// let mut builder = CodePointInversionListBuilder::new();
@@ -162,8 +162,8 @@ impl CaseMapCloserBorrowed<'static> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapCloser;
-    /// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+    /// use icu_casemap::CaseMapCloser;
+    /// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
     ///
     /// let cm = CaseMapCloser::new();
     /// let mut builder = CodePointInversionListBuilder::new();
@@ -232,8 +232,8 @@ impl CaseMapCloserBorrowed<'_> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapCloser;
-    /// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+    /// use icu_casemap::CaseMapCloser;
+    /// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
     ///
     /// let cm = CaseMapCloser::new();
     /// let mut builder = CodePointInversionListBuilder::new();
@@ -262,8 +262,8 @@ impl CaseMapCloserBorrowed<'_> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::CaseMapCloser;
-    /// use icu::collections::codepointinvlist::CodePointInversionListBuilder;
+    /// use icu_casemap::CaseMapCloser;
+    /// use icu_collections::codepointinvlist::CodePointInversionListBuilder;
     ///
     /// let cm = CaseMapCloser::new();
     /// let mut builder = CodePointInversionListBuilder::new();

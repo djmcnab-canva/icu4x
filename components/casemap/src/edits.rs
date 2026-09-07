@@ -38,8 +38,8 @@ pub struct CaseMapEdit {
 /// # Examples
 ///
 /// ```
-/// use icu::casemap::{CaseMapper, CaseMapWriteable};
-/// use icu::locale::langid;
+/// use icu_casemap::{CaseMapper, CaseMapWriteable};
+/// use icu_locale_core::langid;
 ///
 /// let (output, edits) = CaseMapper::new()
 ///     .uppercase("aß!", &langid!("und"))

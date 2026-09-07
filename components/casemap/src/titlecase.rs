@@ -3,8 +3,8 @@
 // (online at: https://github.com/unicode-org/icu4x/blob/main/LICENSE ).
 
 //! Titlecasing-specific
-use crate::CaseMapWriteable;
 use crate::provider::CaseMapV1;
+use crate::CaseMapWriteable;
 use crate::{CaseMapper, CaseMapperBorrowed};
 use alloc::borrow::Cow;
 use icu_locale_core::LanguageIdentifier;
@@ -19,9 +19,9 @@ use icu_provider::prelude::*;
 /// # Examples
 ///
 /// ```rust
-/// use icu::casemap::options::{TitlecaseOptions, TrailingCase};
-/// use icu::casemap::TitlecaseMapper;
-/// use icu::locale::langid;
+/// use icu_casemap::options::{TitlecaseOptions, TrailingCase};
+/// use icu_casemap::TitlecaseMapper;
+/// use icu_locale_core::langid;
 ///
 /// let cm = TitlecaseMapper::new();
 /// let root = langid!("und");
@@ -64,9 +64,9 @@ pub enum TrailingCase {
 /// # Examples
 ///
 /// ```rust
-/// use icu::casemap::options::{LeadingAdjustment, TitlecaseOptions};
-/// use icu::casemap::TitlecaseMapper;
-/// use icu::locale::langid;
+/// use icu_casemap::options::{LeadingAdjustment, TitlecaseOptions};
+/// use icu_casemap::TitlecaseMapper;
+/// use icu_locale_core::langid;
 ///
 /// let cm = TitlecaseMapper::new();
 /// let root = langid!("und");
@@ -180,8 +180,8 @@ pub struct TitlecaseOptions {
 /// Basic casemapping behavior:
 ///
 /// ```rust
-/// use icu::casemap::TitlecaseMapper;
-/// use icu::locale::langid;
+/// use icu_casemap::TitlecaseMapper;
+/// use icu_locale_core::langid;
 ///
 /// let cm = TitlecaseMapper::new();
 /// let root = langid!("und");
@@ -384,8 +384,8 @@ impl<'a> TitlecaseMapperBorrowed<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use icu::casemap::TitlecaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::TitlecaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = TitlecaseMapper::new();
     /// let root = langid!("und");
@@ -413,9 +413,9 @@ impl<'a> TitlecaseMapperBorrowed<'a> {
     /// Leading adjustment behaviors:
     ///
     /// ```rust
-    /// use icu::casemap::options::{LeadingAdjustment, TitlecaseOptions};
-    /// use icu::casemap::TitlecaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::options::{LeadingAdjustment, TitlecaseOptions};
+    /// use icu_casemap::TitlecaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = TitlecaseMapper::new();
     /// let root = langid!("und");
@@ -453,9 +453,9 @@ impl<'a> TitlecaseMapperBorrowed<'a> {
     /// Tail casing behaviors:
     ///
     /// ```rust
-    /// use icu::casemap::options::{TitlecaseOptions, TrailingCase};
-    /// use icu::casemap::TitlecaseMapper;
-    /// use icu::locale::langid;
+    /// use icu_casemap::options::{TitlecaseOptions, TrailingCase};
+    /// use icu_casemap::TitlecaseMapper;
+    /// use icu_locale_core::langid;
     ///
     /// let cm = TitlecaseMapper::new();
     /// let root = langid!("und");
